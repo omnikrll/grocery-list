@@ -1,15 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <AddGroceryItem @add-new-item="addNewItem"/>
+  <DisplayGroceryList @delete-item="deleteItem" v-model:groceries="groceries"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AddGroceryItem from './components/AddGroceryItem.vue'
+import DisplayGroceryList from './components/DisplayGroceryList.vue'
 
 export default {
   name: 'App',
+  data () {
+    return {
+      groceries: []
+    }
+  },
   components: {
-    HelloWorld
+    AddGroceryItem,
+    DisplayGroceryList
+  },
+  methods: {
+    addNewItem(item) {
+      this.groceries.push(item);
+    },
+    deleteItem(index) {
+      this.groceries.splice(index, 1);
+    }
   }
 }
 </script>
@@ -19,7 +34,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
